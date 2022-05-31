@@ -1,0 +1,8 @@
+.photo-gallery__card {
+    background-color: white;
+    border-radius: 5%;
+    width: 282px;
+    height: 361px;
+    margin: 0;
+    padding: 0;
+}

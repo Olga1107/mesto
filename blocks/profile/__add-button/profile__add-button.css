@@ -1,0 +1,16 @@
+.profile__add-button {
+    width: 150px;
+    max-height: 50px;
+    border-radius: 2px;
+}
+
+.profile__add-button:hover {
+    opacity: .6;
+    transition: opacity .4s ease-in-out;
+}
+
+@media screen and (max-width: 950px) {
+    .profile__add-button {
+        margin: 12% auto 0 auto;
+    }
+}

@@ -7,15 +7,91 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
-<body>
-  <header>
-<a></a>
+<body class="page">
+
+  <header class="header">
+    <img src="./images/Logo.svg" alt="Логотип сервиса Mesto" class="header__logo">
+    <img src="./images/Line.svg" alt="Линия" class="headre__line">
   </header>
-  <main>
 
+  <section class="profile">
+    <div class="profile__information">
+      <img src="./images/image jak.svg" alt="Фотография Жак-Ив Кусто в красной шапке" class="profile__photo">
+      <div class="profile__title">
+        <input type="image" src="./images/Edit Button.svg" class="profile__edit-button" alt="Карандаш">
+        <h1 class="profile__name" id="profilename">Жак-Ив Кусто</h1>
+        <h2 class="profile__profession" id="profileprofession">Исследователь океана</h2>
+      </div>
+    </div>
+    <input type="image" src="./images/Add Button.svg" alt="Большой квадрат с плюсом внутри" class="profile__add-button" name="add-button">
+  </section>
+
+  <section class="popup">
+    <div class="popup__background"></div>
+    <form class="popup__container">
+      <input type="image" src="./images/Close Icon.svg" class="popup__close-icon" alt="Крестик">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <input type="text" name="firstname" placeholder="Имя" class="popup__input popup__firstname" value="Жак-Ив Кусто">
+      <input type="text" name="about-self" placeholder="О себе" class="popup__input popup__about-self" value="Исследователь океана">
+      <input type="submit" name="saving" class="popup__save-button" value="Сохранить">
+    </form>
+  </section>
+
+  <main class="photo-gallery">
+
+    <figure class="photo-gallery__card">
+      <img src="./images/baikal.jpg" alt="Байкал" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Байкал</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+
+    <figure class="photo-gallery__card">
+      <img src="./images/elbrus.jpg" alt="Эльбрус" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Эльбрус</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+
+    <figure class="photo-gallery__card">
+      <img src="./images/kamchatka.jpg" alt="Камчатка" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Камчатка</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+
+    <figure class="photo-gallery__card">
+      <img src="./images/karelia.jpg" alt="Карелия" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Карелия</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+
+    <figure class="photo-gallery__card">
+      <img src="./images/nerl.jpg" alt="Церковь Покрова на Нерли" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Церковь Покрова на Нерли</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+
+    <figure class="photo-gallery__card">
+      <img src="./images/volgograd.jpg" alt="Волгоград" class="photo-gallery__image"></image>
+        <figcaption class="photo-gallery__caption">
+          <h3 class="photo-gallery__title">Волгоград</h3>
+          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
+        </figcaption>
+    </figure>
+    
   </main>
-  <footer>
 
+  <footer class="footer">
+    <p class="footer__text">© 2022 Mesto Russia</p>
   </footer>
+  <script src="./index.js"></script>
 </body>
 </html>

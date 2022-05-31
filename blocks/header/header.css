@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    max-width: 69%;
+    margin: 3% auto 3% auto;
+}
+
+@media screen and (max-width: 630px) {
+    .header {
+        margin: 8% auto 21% auto;
+    }
+}

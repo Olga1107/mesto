@@ -1,17 +1,19 @@
 .popup__save-button {
+    background: none;
+    border: none;
+    box-shadow: none;
     width: 358px;
     height: 50px;
     margin: 18px auto 37px auto;
     border-radius: 2px;
     background-color: black;
     color: white;
-    border: none;
-    box-shadow: none;
 }
 
 .popup__save-button:hover {
     opacity: .8;
     transition: opacity .4s ease-in-out;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 630px) {

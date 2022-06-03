@@ -5,6 +5,7 @@ let profileName = document.getElementById('profilename');
 let profileProfession = document.getElementById('profileprofession');
 let nameInput = document.getElementById('popupfirstname');
 let jobInput = document.getElementById('popupaboutself');
+let popupEditForm = document.querySelector('.popup__container');
 
 function openForm() {
     popup.classList.add('popup_opened');
@@ -12,13 +13,9 @@ function openForm() {
     jobInput.value = profileProfession.textContent;
 }
 
-editButton.addEventListener('click', openForm);
-
 function closeForm() {
     popup.classList.remove('popup_opened');
 }
-
-closeButton.addEventListener('click', closeForm);
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
@@ -27,4 +24,6 @@ function formSubmitHandler(evt) {
     closeForm ();
 }
 
-popup.addEventListener('submit', formSubmitHandler);
+editButton.addEventListener('click', openForm);
+closeButton.addEventListener('click', closeForm);
+popupEditForm.addEventListener('submit', formSubmitHandler);

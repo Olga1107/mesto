@@ -1,4 +1,7 @@
 .profile__add-button {
+    background:none;
+    border: none;
+    box-shadow: none;
     width: 150px;
     max-height: 50px;
     border-radius: 2px;
@@ -7,6 +10,7 @@
 .profile__add-button:hover {
     opacity: .6;
     transition: opacity .4s ease-in-out;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 950px) {

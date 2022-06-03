@@ -11,35 +11,35 @@
 
   <header class="header">
     <img src="./images/Logo.svg" alt="Логотип сервиса Mesto" class="header__logo">
-    <img src="./images/Line.svg" alt="Линия" class="header__line">
   </header>
 
+<main>
   <section class="profile">
     <div class="profile__information">
       <img src="./images/imagejak.svg" alt="Фотография Жак-Ив Кусто в красной шапке" class="profile__photo">
       <div class="profile__title">
-        <input type="image" src="./images/EditButton.svg" class="profile__edit-button" alt="Карандаш">
         <h1 class="profile__name" id="profilename">Жак-Ив Кусто</h1>
         <h2 class="profile__profession" id="profileprofession">Исследователь океана</h2>
       </div>
+      <button type="button" class="profile__edit-button"><img src="./images/EditButton.svg" alt="Карандаш"></button>
     </div>
-    <input type="image" src="./images/AddButton.svg" alt="Большой квадрат с плюсом внутри" class="profile__add-button" name="add-button">
+    <button type="button" class="profile__add-button" name="add-button"><img src="./images/AddButton.svg" alt="Большой квадрат с плюсом внутри"></button>
   </section>
 
   <section class="popup">
-    <div class="popup__background"></div>
+    <div class="popup__background"></div> <!--в брифе указано, что полупрозрачный фон необходио верстать отдельным блоком popup-->
     <div class="popup__box">
-      <button class="popup__close-button"><img src="./images/CloseIcon.svg" alt="Крестик" class="popup__close-icon"></button>
-      <form class="popup__container">
+      <button type="button"  class="popup__close-button"><img src="./images/CloseIcon.svg" alt="Крестик" class="popup__close-icon"></button>
+      <form class="popup__container" name="editform">
         <h3 class="popup__title">Редактировать профиль</h3>
         <input type="text" name="firstname" placeholder="Имя" class="popup__input" id="popupfirstname" value="Жак-Ив Кусто">
         <input type="text" name="about-self" placeholder="О себе" class="popup__input" id="popupaboutself" value="Исследователь океана">
-        <input type="submit" name="saving" class="popup__save-button" value="Сохранить">
+        <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
       </form>
    </div>
   </section>
 
-  <main class="photo-gallery">
+  <section class="photo-gallery">
 
     <figure class="photo-gallery__card">
       <img src="./images/baikal.jpg" alt="Байкал" class="photo-gallery__image">
@@ -89,8 +89,8 @@
         </figcaption>
     </figure>
     
-  </main>
-
+  </section>
+</main>
   <footer class="footer">
     <p class="footer__text">© 2022 Mesto Russia</p>
   </footer>

@@ -5,22 +5,23 @@
     max-width: 32px;
     max-height: 32px;
     z-index: 1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 200px;
+    align-self: center;
+    margin-top: -400px;
     margin-right: -40px;
     }
     
 .popup__close-button:hover {
     opacity: .6;
     transition: opacity .4s ease-in-out;
+    cursor: pointer;
 }
     
 @media screen and (max-width: 630px) {
     .popup__close-button {
         max-width: 20px;
         max-height: 20px;
-        /*margin-right: 0;*/
+        margin-right: 0;
+        margin-top: -380px;
+        margin-left: -22px;
     }
 }

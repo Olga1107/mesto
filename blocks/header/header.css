@@ -1,8 +1,9 @@
 .header {
     display: flex;
     flex-direction: column;
-    max-width: 69%;
+    width: 69%;
     margin: 3% auto 3% auto;
+    border-bottom: 1px solid #545454;
 }
 
 @media screen and (max-width: 630px) {

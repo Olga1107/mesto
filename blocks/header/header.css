@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 69%;
     margin: 3% auto 3% auto;
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 @media screen and (max-width: 630px) {

@@ -1,4 +1,6 @@
 .popup__box {
     display: flex;
-    flex-direction: row-reverse;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 10px;
 }

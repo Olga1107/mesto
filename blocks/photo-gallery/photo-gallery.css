@@ -19,6 +19,7 @@
 
 @media screen and (max-width: 630px) {
     .photo-gallery {
+        margin: 0 auto 15% auto;
         grid-template-columns: repeat(1, min-content);
         grid-template-rows: repeat(6, min-content);
     }

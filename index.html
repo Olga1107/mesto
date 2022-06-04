@@ -16,84 +16,84 @@
 <main>
   <section class="profile">
     <div class="profile__information">
-      <img src="./images/imagejak.svg" alt="Фотография Жак-Ив Кусто в красной шапке" class="profile__photo">
+      <img src="./images/jak.jpg" alt="Фотография Жак-Ив Кусто в красной шапке" class="profile__photo">
       <div class="profile__title">
-        <h1 class="profile__name" id="profilename">Жак-Ив Кусто</h1>
-        <h2 class="profile__profession" id="profileprofession">Исследователь океана</h2>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__profession">Исследователь океана</p>
       </div>
-      <button type="button" class="profile__edit-button"><img src="./images/EditButton.svg" alt="Карандаш"></button>
+      <button type="button" class="profile__edit-button" aria-label="Редактировать информацию профиля"></button>
     </div>
-    <button type="button" class="profile__add-button" name="add-button"><img src="./images/AddButton.svg" alt="Большой квадрат с плюсом внутри"></button>
-  </section>
-
-  <section class="popup">
-    <div class="popup__background"></div> <!--в брифе указано, что полупрозрачный фон необходио верстать отдельным блоком popup-->
-    <div class="popup__box">
-      <button type="button"  class="popup__close-button"><img src="./images/CloseIcon.svg" alt="Крестик" class="popup__close-icon"></button>
-      <form class="popup__container" name="editform">
-        <h3 class="popup__title">Редактировать профиль</h3>
-        <input type="text" name="firstname" placeholder="Имя" class="popup__input" id="popupfirstname" value="Жак-Ив Кусто">
-        <input type="text" name="about-self" placeholder="О себе" class="popup__input" id="popupaboutself" value="Исследователь океана">
-        <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
-      </form>
-   </div>
+    <button type="button" class="profile__add-button" name="add-button" aria-label="Добавить карточку с фото"></button>
   </section>
 
   <section class="photo-gallery">
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/baikal.jpg" alt="Байкал" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Байкал</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/elbrus.jpg" alt="Эльбрус" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Эльбрус</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/kamchatka.jpg" alt="Камчатка" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Камчатка</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/karelia.jpg" alt="Карелия" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Карелия</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/nerl.jpg" alt="Церковь Покрова на Нерли" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Церковь Покрова на Нерли</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
 
-    <figure class="photo-gallery__card">
+    <div class="photo-gallery__card">
       <img src="./images/volgograd.jpg" alt="Волгоград" class="photo-gallery__image">
-        <figcaption class="photo-gallery__caption">
+        <div class="photo-gallery__caption">
           <h3 class="photo-gallery__title">Волгоград</h3>
-          <input type="image" src="./images/Like.svg" alt="Сердечко" class="photo-gallery__like">
-        </figcaption>
-    </figure>
+          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+        </div>
+    </div>
     
   </section>
 </main>
   <footer class="footer">
-    <p class="footer__text">© 2022 Mesto Russia</p>
+    <p class="footer__text">&copy; 2022 Mesto Russia</p>
   </footer>
-  <script src="./index.js"></script>
+
+  <div class="popup">
+    <div class="popup__box">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__container" name="editform">
+        <input type="text" name="firstname" placeholder="Имя" class="popup__input popup__firstname" required>
+        <input type="text" name="about-self" placeholder="О себе" class="popup__input popup__aboutself" required>
+        <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
+      </form>
+    </div>
+    <button type="button"  class="popup__close-button" aria-label="Закрыть окно редактирования без сохранения"></button>
+  </div>
+
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

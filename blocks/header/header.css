@@ -17,3 +17,10 @@
         margin: 8% auto 21% auto;
     }
 }
+
+@media screen and (max-width: 321px) {
+    .header {
+        margin: 8% auto 12% auto;
+        width: 100%;
+    }
+}

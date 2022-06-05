@@ -9,6 +9,9 @@
     background-color: black;
     color: white;
     transition: opacity .4s ease-in-out;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .popup__save-button:hover {

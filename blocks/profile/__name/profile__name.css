@@ -12,6 +12,12 @@
     overflow: hidden;
 }
 
+@media screen and (max-width: 1030px) {
+    .profile__name {
+        max-width: 290px;
+    }
+}
+
 @media screen and (max-width: 630px) {
     .profile__name {
         max-width: 189px;

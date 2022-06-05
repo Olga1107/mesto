@@ -11,6 +11,12 @@
     overflow: hidden;
 }
 
+@media screen and (max-width: 1030px) {
+    .profile__profession {
+        max-width: 290px;
+    }
+}
+
 @media screen and (max-width: 630px) {
     .profile__profession {
         font-size: 14px;

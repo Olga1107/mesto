@@ -6,15 +6,15 @@ const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 const nameInput = document.querySelector('.popup__input_data_name');
 const jobInput = document.querySelector('.popup__input_data_description');
-const popupEditForm = document.querySelector('.popup__edit-form');
+const popupEditForm = document.querySelector('.edit-form');
 
 const addButton = document.querySelector('.profile__add-button');
-const popupAddForm = document.querySelector('.popup__add-form');
+const popupAddForm = document.querySelector('.add-form');
 const namePlaceInput = document.querySelector('.popup__input_data_place-name');
 const urlPictureInput = document.querySelector('.popup__input_data_url-on-picture');
 const closeButtonAddForm = document.querySelector('.popup__close-button-add');
 
-const popupView = document.querySelector('.popup__view-photo');
+const popupView = document.querySelector('.view-photo');
 const popupCaption = document.querySelector('.popup__caption-photo');
 const popupImage = document.querySelector('.popup__image');
 

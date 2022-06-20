@@ -27,62 +27,24 @@
   </section>
 
   <section class="photo-gallery">
-
-    <div class="photo-gallery__card">
-      <img src="./images/baikal.jpg" alt="Байкал" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Байкал</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-
-    <div class="photo-gallery__card">
-      <img src="./images/elbrus.jpg" alt="Эльбрус" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Эльбрус</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-
-    <div class="photo-gallery__card">
-      <img src="./images/kamchatka.jpg" alt="Камчатка" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Камчатка</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-
-    <div class="photo-gallery__card">
-      <img src="./images/karelia.jpg" alt="Карелия" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Карелия</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-
-    <div class="photo-gallery__card">
-      <img src="./images/nerl.jpg" alt="Церковь Покрова на Нерли" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Церковь Покрова на Нерли</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-
-    <div class="photo-gallery__card">
-      <img src="./images/volgograd.jpg" alt="Волгоград" class="photo-gallery__image">
-        <div class="photo-gallery__caption">
-          <h2 class="photo-gallery__title">Волгоград</h2>
-          <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
-        </div>
-    </div>
-    
+    <template id="card">
+      <div class="photo-gallery__card">
+        <img alt="Изображение" class="photo-gallery__image photo-gallery__view-button">
+          <div class="photo-gallery__caption">
+            <h2 class="photo-gallery__title"></h2>
+            <button type="button" class="photo-gallery__like-button" aria-label="Сердечко для лайка"></button>
+          </div>
+        <button type="button" class="photo-gallery__remove-button" aria-label="Значок удалить в виде корзины"></button>
+      </div>
+    </template>
   </section>
+
 </main>
   <footer class="footer">
     <p class="footer__text">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup__edit-form">
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__container" name="editform">
@@ -91,7 +53,28 @@
         <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
       </form>
     </div>
-    <button type="button"  class="popup__close-button" aria-label="Закрыть окно редактирования без сохранения"></button>
+    <button type="button"  class="popup__close-button popup__close-button-edit" aria-label="Закрыть окно редактирования без сохранения"></button>
+  </div>
+
+  <div class="popup popup__add-form">
+    <div class="popup__box">
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__container" name="addform">
+        <input type="text" name="place-name" placeholder="Название" class="popup__input popup__input_data_place-name" required>
+        <input type="url" name="url-on-picture" placeholder="Ссылка на картинку" class="popup__input popup__input_data_url-on-picture" required>
+        <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
+      </form>
+    </div>
+    <button type="button"  class="popup__close-button popup__close-button-add" aria-label="Закрыть окно добавления карточки без сохранения"></button>
+  </div>
+
+  <div class="popup popup__view-photo">
+    <div class="popup__box-view">
+      <img alt="Изображение" class="popup__image">
+      <h3 class="popup__caption-photo"></h3>
+      <button type="button"  class="popup__close-button popup__close-button-view" aria-label="Закрыть окно просмотра"></button>
+    </div>
+    
   </div>
 
   <script src="./scripts/index.js"></script>

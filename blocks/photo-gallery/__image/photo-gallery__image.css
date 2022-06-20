@@ -4,3 +4,7 @@
     width: 282px;
     height: 282px;
 }
+
+.photo-gallery__image {
+    cursor: pointer;
+}

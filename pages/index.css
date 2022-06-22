@@ -29,8 +29,7 @@
 @import url(../blocks/footer/__text/footer__text.css);
 
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/edit-form/edit-form.css);
-@import url(../blocks/add-form/add-form.css);
+@import url(../blocks/popup/_dark-background/popup_dark-background.css);
 @import url(../blocks/popup/__box/popup__box.css);
 @import url(../blocks/popup/__box-view/popup__box-view.css);
 @import url(../blocks/popup/__container/popup__container.css);

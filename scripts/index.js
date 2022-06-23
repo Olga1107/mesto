@@ -25,6 +25,8 @@ const initialCards = [
   }
 ];
 
+const popups = document.querySelectorAll('.popup');
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonCloseEditForm = document.querySelector('.popup__close-button-edit');
 const profileName = document.querySelector('.profile__name');
@@ -41,6 +43,9 @@ const pictureCaption = document.querySelector('.popup__caption-photo');
 const picture = document.querySelector('.popup__image');
 const buttonCloseView = document.querySelector('.popup__close-button-view');
 
+const formEdit = document.forms.editform;
+const formAdd = document.forms.addform;
+
 const popupEditForm = document.querySelector('.edit-form');
 const popupAddForm = document.querySelector('.add-form');
 const popupView = document.querySelector('.view-photo');
@@ -50,11 +55,20 @@ const cardsGallery = document.querySelector('.photo-gallery');
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', exitPopup);
 };
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', exitPopup);
 }
+
+function exitPopup(evt) {
+  if (evt.key === 'Escape') {
+    const exitPopup = document.querySelector('.popup_opened');
+    closePopup(exitPopup);
+};
+};
 
 function openPopupEdit() {
     nameInput.value = profileName.textContent;
@@ -106,6 +120,7 @@ function creatCard({name, link}) {
   pictureView.addEventListener('click', function () {
     pictureCaption.textContent = name;
     picture.src = link;
+    picture.alt = name;
     openPopup(popupView);
   });
   const buttonLike = cardElement.querySelector('.photo-gallery__like-button');
@@ -123,8 +138,9 @@ function creatNewCard(evt) {
   evt.preventDefault();
   const name = namePlaceInput.value;
   const link = urlPictureInput.value;
-    renderCard(creatCard({name, link}), true);
-    closePopup (popupAddForm);
+  renderCard(creatCard({name, link}), true);
+  closePopup (popupAddForm);
+  formAdd.reset();
   };
 
 function firstListCard() {
@@ -141,3 +157,11 @@ firstListCard();
   buttonCloseAddForm.addEventListener('click', closePopupAdd);
   popupAddForm.addEventListener('submit', creatNewCard);
   buttonCloseView.addEventListener('click', closePopupView);
+
+  popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (event)=> {
+      if(event.target.classList.contains('popup__close-button') || event.target === event.currentTarget) {
+        closePopup(popup)
+      }
+    });
+  });

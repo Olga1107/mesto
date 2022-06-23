@@ -34,11 +34,15 @@
 @import url(../blocks/popup/__box-view/popup__box-view.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_error/popup__input_error.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
+@import url(../blocks/popup/__save-button/_disabled/popup__save-button_disabled.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button-view/popup__close-button-view.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__caption-photo/popup__caption-photo.css);
 @import url(../blocks/view-photo/view-photo.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__error/_active/popup__error_active.css);

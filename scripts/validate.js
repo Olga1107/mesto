@@ -2,8 +2,6 @@
 const enableValidation = function (setting) {
     const forms = Array.from(document.querySelectorAll(setting.formSelector));
     forms.forEach(function (formElement)  {
-      formElement.addEventListener('submit', function (evt) 
-      {evt.preventDefault()});
       setEventListeners (formElement, setting);
     });
   };
@@ -19,8 +17,6 @@ const enableValidation = function (setting) {
         toggleButtonState(inputs, buttonSave, setting);
       });
     });
-    formElement.addEventListener('reset', function () {
-        disabledButton(buttonSave, setting)});
   };
   
   // Дезактивация кнопки "Сохранить" при открытии попапа добавления места
@@ -32,8 +28,7 @@ const enableValidation = function (setting) {
   // Проверка состояния полей ввода для активации/дезактивации кнопки "Сохранить"
   const toggleButtonState = function (inputs, buttonSave, setting) {
     if(inputInvalid(inputs)) {
-      buttonSave.classList.add(setting.inactiveButtonClass);
-      buttonSave.setAttribute('disabled', true);
+      disabledButton(buttonSave, setting);
     } else {
       buttonSave.classList.remove(setting.inactiveButtonClass);
       buttonSave.removeAttribute('disabled');

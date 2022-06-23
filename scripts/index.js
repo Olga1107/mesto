@@ -88,8 +88,7 @@ function formSubmitHandlerEdit(evt) {
 };
 
 function openPopupAdd() {
-    urlPictureInput.value = '';
-    namePlaceInput.value = '';
+    formAdd.reset();
     openPopup(popupAddForm);
 };
 
@@ -134,20 +133,22 @@ function creatCard({name, link}) {
 return cardElement;
 }
 
-function creatNewCard(evt) {
+function createNewCard(evt) {
   evt.preventDefault();
   const name = namePlaceInput.value;
   const link = urlPictureInput.value;
   renderCard(creatCard({name, link}), true);
   closePopup (popupAddForm);
   formAdd.reset();
+  const buttonSave = document.querySelector('.button-saved');
+  buttonSave.classList.add('popup__save-button_disabled');
   };
 
-function firstListCard() {
+function addFirstListCard() {
   initialCards.forEach(function (cardElement) {renderCard(creatCard(cardElement))});
 }
 
-firstListCard();
+addFirstListCard();
 
   buttonEdit.addEventListener('click', openPopupEdit);
   buttonCloseEditForm.addEventListener('click', closePopupEdit);
@@ -155,11 +156,11 @@ firstListCard();
 
   buttonAdd.addEventListener('click', openPopupAdd);
   buttonCloseAddForm.addEventListener('click', closePopupAdd);
-  popupAddForm.addEventListener('submit', creatNewCard);
+  popupAddForm.addEventListener('submit', createNewCard);
   buttonCloseView.addEventListener('click', closePopupView);
 
   popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (event)=> {
+    popup.addEventListener('mousedown', function (event) {
       if(event.target.classList.contains('popup__close-button') || event.target === event.currentTarget) {
         closePopup(popup)
       }

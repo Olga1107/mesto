@@ -10,8 +10,8 @@
       
      @media screen and (max-width: 630px) {
     .popup__error {
-        min-width: 238px;
-        margin: 0 auto;
+        max-width: 238px;
+        margin: 0 0 0 20px;
     }
 }
 

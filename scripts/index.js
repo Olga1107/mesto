@@ -142,10 +142,12 @@ function createNewCard(evt) {
   formAdd.reset();
   const buttonSave = document.querySelector('.button-saved');
   buttonSave.classList.add('popup__save-button_disabled');
+  buttonSave.setAttribute('disabled', true);
   };
 
 function addFirstListCard() {
-  initialCards.forEach(function (cardElement) {renderCard(creatCard(cardElement))});
+  initialCards.forEach(function (cardElement) 
+  {renderCard(creatCard(cardElement))});
 }
 
 addFirstListCard();

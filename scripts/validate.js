@@ -67,7 +67,7 @@ const enableValidation = function (setting) {
     errors.textContent = '';
   };
 
- enableValidation({
+  enableValidation({
     formSelector: '.form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',

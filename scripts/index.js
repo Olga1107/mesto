@@ -1,3 +1,5 @@
+import {Card} from './Card.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -39,24 +41,23 @@ const namePlaceInput = document.querySelector('.popup__input_data_place-name');
 const urlPictureInput = document.querySelector('.popup__input_data_url-on-picture');
 const buttonCloseAddForm = document.querySelector('.popup__close-button-add');
 
-const pictureCaption = document.querySelector('.popup__caption-photo');
-const picture = document.querySelector('.popup__image');
 const buttonCloseView = document.querySelector('.popup__close-button-view');
 
-const formEdit = document.forms.editform;
 const formAdd = document.forms.addform;
+const formEdit = document.forms.editform;
 
 const popupEditForm = document.querySelector('.edit-form');
 const popupAddForm = document.querySelector('.add-form');
 const popupView = document.querySelector('.view-photo');
 
-const cardTemplate = document.querySelector('#card').content;
+
 const cardsGallery = document.querySelector('.photo-gallery');
 
-function openPopup (popup) {
+
+export function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', exitPopup);
-};
+}
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
@@ -109,35 +110,11 @@ function renderCard(cardElement, isPrepend = false) {
   }
 };
 
-function creatCard({name, link}) {
-  const cardElement = cardTemplate.querySelector('.photo-gallery__card').cloneNode(true);
-  const pictureView = cardElement.querySelector('.photo-gallery__image');
-  const title = cardElement.querySelector('.photo-gallery__title');
-  pictureView.src = link;
-  pictureView.alt = name;
-  title.textContent = name;
-  pictureView.addEventListener('click', function () {
-    pictureCaption.textContent = name;
-    picture.src = link;
-    picture.alt = name;
-    openPopup(popupView);
-  });
-  const buttonLike = cardElement.querySelector('.photo-gallery__like-button');
-  buttonLike.addEventListener('click', function likeStatus() {
-    buttonLike.classList.toggle('photo-gallery__like-button_active');
-  });
-  const buttonRemove = cardElement.querySelector('.photo-gallery__remove-button');
-  buttonRemove.addEventListener('click', function deleteCard () {
-    cardElement.remove();
-  });
-return cardElement;
-}
-
 function createNewCard(evt) {
   evt.preventDefault();
   const name = namePlaceInput.value;
   const link = urlPictureInput.value;
-  renderCard(creatCard({name, link}), true);
+  renderCard(new Card({name, link}), true);
   closePopup (popupAddForm);
   formAdd.reset();
   const buttonSave = document.querySelector('.button-saved');
@@ -147,7 +124,7 @@ function createNewCard(evt) {
 
 function addFirstListCard() {
   initialCards.forEach(function (cardElement) 
-  {renderCard(creatCard(cardElement))});
+  {renderCard(new Card(cardElement))});
 }
 
 addFirstListCard();

@@ -51,14 +51,22 @@ const popupAddForm = document.querySelector('.add-form');
 const popupView = document.querySelector('.view-photo');
 
 
+
 const cardsGallery = document.querySelector('.photo-gallery');
 
+export function openViewPicture ({name, link}) {
+  const pictureCaption = document.querySelector('.popup__caption-photo');
+  const picture = document.querySelector('.popup__image');
+    pictureCaption.textContent = name;
+    picture.src = link;
+    picture.alt = name;
+    openPopup(popupView);
+}
 
-export function openPopup (popup) {
+function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', exitPopup);
 }
-
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', exitPopup);

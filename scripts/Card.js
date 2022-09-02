@@ -1,4 +1,4 @@
-import {openPopup} from './index.js'
+import {openViewPicture} from './index.js'
 
 export class Card {
     constructor ({name, link}) {
@@ -8,26 +8,23 @@ export class Card {
         this._title = this._cardElement.querySelector('.photo-gallery__title');
         this._buttonLike = this._cardElement.querySelector('.photo-gallery__like-button');
         this._buttonRemove = this._cardElement.querySelector('.photo-gallery__remove-button');
-        this._pictureCaption = document.querySelector('.popup__caption-photo');
-        this._picture = document.querySelector('.popup__image');
         this._popupView = document.querySelector('.view-photo');
 
+        this._name = name;
+        this._link = link;
         this._pictureView.src = link;
         this._pictureView.alt = name;
         this._title.textContent = name;
-        this._pictureCaption.textContent = name;
-        this._picture.src = link;
-        this._picture.alt = name;
-
-        this._pictureView.addEventListener('click', this._openPhoto.bind(this));
+        
+        this._pictureView.addEventListener('click', this._openViewPicture.bind(this));
         this._buttonLike.addEventListener('click', this._likeStatus.bind(this));
         this._buttonRemove.addEventListener('click', this._deleteCard.bind(this)); 
     
         return this._cardElement
     }
 
-    _openPhoto() {
-        openPopup(this._popupView);
+    _openViewPicture() {
+        openViewPicture({name: this._name, link: this._link});
     }
 
     _likeStatus() {

@@ -1,4 +1,5 @@
 import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js'
 
 const initialCards = [
   {
@@ -50,9 +51,22 @@ const popupEditForm = document.querySelector('.edit-form');
 const popupAddForm = document.querySelector('.add-form');
 const popupView = document.querySelector('.view-photo');
 
-
-
 const cardsGallery = document.querySelector('.photo-gallery');
+
+const enableValidation = {
+  formSelector: '.form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__error_active'
+};
+
+const validationProfile = new FormValidator (enableValidation, formEdit);
+const validationCard = new FormValidator (enableValidation, formAdd);
+
+validationCard.enableValidation();
+validationProfile.enableValidation();
 
 export function openViewPicture ({name, link}) {
   const pictureCaption = document.querySelector('.popup__caption-photo');

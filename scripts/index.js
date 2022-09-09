@@ -50,6 +50,8 @@ const formEdit = document.forms.editform;
 const popupEditForm = document.querySelector('.edit-form');
 const popupAddForm = document.querySelector('.add-form');
 const popupView = document.querySelector('.view-photo');
+const pictureCaption = document.querySelector('.popup__caption-photo');
+const picture = document.querySelector('.popup__image');
 
 const cardsGallery = document.querySelector('.photo-gallery');
 
@@ -62,15 +64,27 @@ const enableValidation = {
   errorClass: 'popup__error_active'
 };
 
+const data = {
+  cardTemplate: '#card',
+  cardGallery: '.photo-gallery__card',
+  cardImage: '.photo-gallery__image',
+  title: '.photo-gallery__title',
+  buttonLike: '.photo-gallery__like-button',
+  buttonRemove: '.photo-gallery__remove-button'
+}
+
 const validationProfile = new FormValidator (enableValidation, formEdit);
 const validationCard = new FormValidator (enableValidation, formAdd);
 
 validationCard.enableValidation();
 validationProfile.enableValidation();
 
+function creatCard(cardTemplate) {
+  const card = new Card (cardTemplate, data).addCard();
+  return card;
+}
+
 export function openViewPicture ({name, link}) {
-  const pictureCaption = document.querySelector('.popup__caption-photo');
-  const picture = document.querySelector('.popup__image');
     pictureCaption.textContent = name;
     picture.src = link;
     picture.alt = name;
@@ -136,17 +150,15 @@ function createNewCard(evt) {
   evt.preventDefault();
   const name = namePlaceInput.value;
   const link = urlPictureInput.value;
-  renderCard(new Card({name, link}), true);
+  renderCard(creatCard({name,link}), true);
   closePopup (popupAddForm);
   formAdd.reset();
-  const buttonSave = document.querySelector('.button-saved');
-  buttonSave.classList.add('popup__save-button_disabled');
-  buttonSave.setAttribute('disabled', true);
+  validationCard._disabledButton();
   };
 
 function addFirstListCard() {
-  initialCards.forEach(function (cardElement) 
-  {renderCard(new Card(cardElement))});
+  initialCards.forEach(function ({name,link}) 
+  {renderCard(creatCard({name,link}))});
 }
 
 addFirstListCard();

@@ -153,7 +153,7 @@ function createNewCard(evt) {
   renderCard(creatCard({name,link}), true);
   closePopup (popupAddForm);
   formAdd.reset();
-  validationCard._disabledButton();
+  validationCard.disabledButton();
   };
 
 function addFirstListCard() {

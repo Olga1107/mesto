@@ -13,8 +13,6 @@ export class Card {
         this._link = link;
     }
 
-
-
     _getTemplate() {
         const cardTemplate = document.querySelector(this._cardTemplate).content;
         this._cardElement = cardTemplate.querySelector(this._cardGallery).cloneNode(true);
@@ -27,18 +25,22 @@ export class Card {
     }
 
     _openViewPicture() {
-        this._pictureView.addEventListener('click', () => 
-        {openViewPicture({name: this._name, link: this._link})})
+        openViewPicture({name: this._name, link: this._link});
     }
 
     _likeStatus() {
-        this._buttonLike.addEventListener('click', () => 
-        {this._buttonLike.classList.toggle('photo-gallery__like-button_active')})
+        this._buttonLike.classList.toggle('photo-gallery__like-button_active');
     }
 
     _deleteCard() {
-        this._buttonRemove.addEventListener('click', () =>  
-        {this._cardElement.remove()})
+        this._cardElement.remove();
+    }
+
+    
+    _setEventListeners() {
+        this._pictureView.addEventListener('click', this._openViewPicture.bind(this)); 
+        this._buttonLike.addEventListener('click', this._likeStatus.bind(this)); 
+        this._buttonRemove.addEventListener('click', this._deleteCard.bind(this));
     }
 
     addCard() {
@@ -46,9 +48,7 @@ export class Card {
         this._pictureView.src = this._link;
         this._pictureView.alt = this._name;
         this._title.textContent = this._name;
-        this._openViewPicture();
-        this._likeStatus();
-        this._deleteCard();
-        return this._cardElement
+        this._setEventListeners();
+        return this._cardElement;
     };
 }

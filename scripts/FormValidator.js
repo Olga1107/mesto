@@ -9,17 +9,10 @@ export class FormValidator {
         this._formElement = formElement;
     }
 
-    
-    // Дезактивация кнопки "Сохранить" при открытии попапа добавления места
-    _disabledButton() {
-        this._buttonSave.classList.add(this._inactiveButtonClass);
-        this._buttonSave.setAttribute('disabled', true);
-      }
-
     // Проверка состояния полей ввода для активации/дезактивации кнопки "Сохранить"
     _toggleButtonState () {
         if(this._inputInvalid(this._inputs)) {
-            this._disabledButton();
+            this.disabledButton();
         } else {
           this._buttonSave.classList.remove(this._inactiveButtonClass);
           this._buttonSave.removeAttribute('disabled');
@@ -56,6 +49,12 @@ export class FormValidator {
         errors.classList.remove(this._errorClass);
         errors.textContent = '';
       };
+
+    // Дезактивация кнопки "Сохранить" при открытии попапа добавления места
+    disabledButton() {
+      this._buttonSave.classList.add(this._inactiveButtonClass);
+      this._buttonSave.setAttribute('disabled', true);
+    }
 
     // Метод включения валидации форм
     enableValidation() {

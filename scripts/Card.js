@@ -1,13 +1,12 @@
-import {openViewPicture} from './index.js'
-
 export class Card {
-    constructor ({name, link}, data) {
+    constructor ({name, link}, data, openViewPicture) {
         this._cardTemplate = data.cardTemplate;
         this._cardGallery = data.cardGallery;
         this._cardImage = data.cardImage;
         this._title = data.title;
         this._buttonLike = data.buttonLike;
         this._buttonRemove = data.buttonRemove;
+        this._openViewPicture = openViewPicture;
 
         this._name = name;
         this._link = link;
@@ -24,10 +23,6 @@ export class Card {
         return cardTemplate;
     }
 
-    _openViewPicture() {
-        openViewPicture({name: this._name, link: this._link});
-    }
-
     _likeStatus() {
         this._buttonLike.classList.toggle('photo-gallery__like-button_active');
     }
@@ -38,7 +33,7 @@ export class Card {
 
     
     _setEventListeners() {
-        this._pictureView.addEventListener('click', this._openViewPicture.bind(this)); 
+        this._pictureView.addEventListener('click', () => {this._openViewPicture({name: this._name, link: this._link})}); 
         this._buttonLike.addEventListener('click', this._likeStatus.bind(this)); 
         this._buttonRemove.addEventListener('click', this._deleteCard.bind(this));
     }

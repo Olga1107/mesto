@@ -103,28 +103,29 @@ buttonAdd.addEventListener('click', () => {
   openAdd.openPopup()});
 
 
-
 const openEdit = new PopupWithForm (popupEditForm, formSubmitHandlerEdit);
 openEdit.setEventListeners();
 
-const userInfo = new UserInfo ({name: profileName.textContent, job: profileProfession.textContent});
+const userInfo = new UserInfo ({name: profileName, job: profileProfession});
 
 function openEditProfile() {
-  const user = userInfo.getUserInfo();
-  openEdit.setInputsValues(user);
+  const userData = userInfo.getUserInfo();
+  openEdit.setInputsValues(userData);
   openEdit.openPopup();
 };
 
 buttonEdit.addEventListener('click', openEditProfile);
 
-function formSubmitHandlerEdit() {
-    userInfo.setUserInfo({name: nameInput.value, job: jobInput.value});
+function formSubmitHandlerEdit(res) {
+  userInfo.setUserInfo(res);
+  openEdit.closePopup();
 };
 
 function createNewCard() {
   const name = namePlaceInput.value;
   const link = urlPictureInput.value;
   renderCard(({name,link}), true);
+  openAdd.closePopup();
 };
 
 function renderCard(cardTemplate) {

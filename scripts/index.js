@@ -84,16 +84,12 @@ function creatCard(cardTemplate) {
   return card;
 }
 
-
-
 const popupZoom = new PopupWithImage (popupView, picture, pictureCaption);
 popupZoom.setEventListeners();
 
 function openViewPicture ({name, link}) {
     popupZoom.openPopup({name, link});
 }
-
-
 
 const openAdd = new PopupWithForm (popupAddForm, createNewCard);
 openAdd.setEventListeners();
@@ -102,21 +98,24 @@ buttonAdd.addEventListener('click', () => {
   validationCard.disabledButton();
   openAdd.openPopup()});
 
-
 const openEdit = new PopupWithForm (popupEditForm, formSubmitHandlerEdit);
 openEdit.setEventListeners();
 
 const userInfo = new UserInfo ({name: profileName, job: profileProfession});
 
 function openEditProfile() {
-  const userData = userInfo.getUserInfo();
-  openEdit.setInputsValues(userData);
+  const {name, job} = userInfo.getUserInfo(); 
+  nameInput.value = name;
+  jobInput.value = job;
   openEdit.openPopup();
 };
 
 buttonEdit.addEventListener('click', openEditProfile);
 
-function formSubmitHandlerEdit(res) {
+function formSubmitHandlerEdit() {
+  const res = {
+    name: nameInput.value, 
+    job: jobInput.value};
   userInfo.setUserInfo(res);
   openEdit.closePopup();
 };

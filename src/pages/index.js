@@ -1,11 +1,11 @@
-import '../pages/index.css';
+import './index.css';
 
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
-import {Section} from './Section.js';
-import {PopupWithImage} from './PopupWithImage.js';
-import {PopupWithForm} from './PopupWithForm.js';
-import {UserInfo} from './UserInfo.js';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Section} from '../components/Section.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {UserInfo} from '../components/UserInfo.js';
 
 const initialCards = [
   {
@@ -93,14 +93,26 @@ function openViewPicture ({name, link}) {
     popupZoom.openPopup({name, link});
 }
 
-const openAdd = new PopupWithForm (popupAddForm, createNewCard);
+const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
+  data.name = namePlaceInput.value;
+  data.link = urlPictureInput.value;
+  renderCard(data);
+  openAdd.closePopup();
+}});
+
 openAdd.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
   validationCard.disabledButton();
   openAdd.openPopup()});
 
-const openEdit = new PopupWithForm (popupEditForm, formSubmitHandlerEdit);
+const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
+  data.name = nameInput.value;
+  data.job = jobInput.value;
+  userInfo.setUserInfo(data);
+  openEdit.closePopup();
+}});
+
 openEdit.setEventListeners();
 
 const userInfo = new UserInfo ({name: profileName, job: profileProfession});
@@ -114,25 +126,10 @@ function openEditProfile() {
 
 buttonEdit.addEventListener('click', openEditProfile);
 
-function formSubmitHandlerEdit() {
-  const res = {
-    name: nameInput.value, 
-    job: jobInput.value};
-  userInfo.setUserInfo(res);
-  openEdit.closePopup();
-};
-
-function createNewCard() {
-  const name = namePlaceInput.value;
-  const link = urlPictureInput.value;
-  renderCard(({name,link}), true);
-  openAdd.closePopup();
-};
-
 function renderCard(cardTemplate) {
   const cardElement = creatCard(cardTemplate);
   firstListCard.addItem(cardElement);
 };
 
-const firstListCard = new Section({items: initialCards, renderer: renderCard}, cardsGallery);
-firstListCard.renderItems();
+const firstListCard = new Section({renderer: renderCard}, cardsGallery);
+firstListCard.renderItems({items: initialCards});

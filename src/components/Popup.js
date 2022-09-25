@@ -4,10 +4,12 @@ export class Popup {
     }
     openPopup() {
         this._popupSelector.classList.add('popup_opened');
+        document.addEventListener('keydown', this._exitPopup.bind(this));
     };
 
     closePopup() {
         this._popupSelector.classList.remove('popup_opened');
+        document.removeEventListener('keydown', this._exitPopup.bind(this));
     };
 
     _exitPopup (evt) {

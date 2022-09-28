@@ -94,8 +94,6 @@ function openViewPicture ({name, link}) {
 }
 
 const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
-  data.name = namePlaceInput.value;
-  data.link = urlPictureInput.value;
   renderCard(data);
   openAdd.closePopup();
 }});
@@ -107,20 +105,18 @@ buttonAdd.addEventListener('click', () => {
   openAdd.openPopup()});
 
 const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
-  data.name = nameInput.value;
-  data.job = jobInput.value;
   userInfo.setUserInfo(data);
   openEdit.closePopup();
 }});
 
 openEdit.setEventListeners();
 
-const userInfo = new UserInfo ({name: profileName, job: profileProfession});
+const userInfo = new UserInfo ({name: profileName, profession: profileProfession});
 
 function openEditProfile() {
-  const {name, job} = userInfo.getUserInfo(); 
+  const {name, profession} = userInfo.getUserInfo(); 
   nameInput.value = name;
-  jobInput.value = job;
+  jobInput.value = profession;
   openEdit.openPopup();
 };
 

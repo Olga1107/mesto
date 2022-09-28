@@ -37,9 +37,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__container form" name="editform" novalidate>
-        <input type="text" name="first-name" placeholder="Имя" class="popup__input popup__input_data_name" value="не пустое" id="firstname" required minlength="2" maxlength="40">
+        <input type="text" name="name" placeholder="Имя" class="popup__input popup__input_data_name" value="не пустое" id="firstname" required minlength="2" maxlength="40">
         <span class="popup__error" id="firstname-error"></span>
-        <input type="text" name="about-self" placeholder="О себе" class="popup__input popup__input_data_description" value="не пустое" id="aboutself" required minlength="2" maxlength="200">
+        <input type="text" name="about" placeholder="О себе" class="popup__input popup__input_data_description" value="не пустое" id="aboutself" required minlength="2" maxlength="200">
         <span class="popup__error" id="aboutself-error"></span>
         <button type="submit" name="saving" class="popup__save-button">Сохранить</button>
       </form>
@@ -51,9 +51,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__container form" name="addform" novalidate>
-        <input type="text" name="place-name" placeholder="Название" class="popup__input popup__input_data_place-name" value="" id="placename" required minlength="2" maxlength="30">
+        <input type="text" name="name" placeholder="Название" class="popup__input popup__input_data_place-name" value="" id="placename" required minlength="2" maxlength="30">
         <span class="popup__error" id="placename-error"></span>
-        <input type="url" name="url-on-picture" placeholder="Ссылка на картинку" class="popup__input popup__input_data_url-on-picture" value="" id="urlonpicture" required>
+        <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_data_url-on-picture" value="" id="urlonpicture" required>
         <span class="popup__error" id="urlonpicture-error"></span>
         <button type="submit" name="saving" class="popup__save-button button-saved" disabled>Создать</button>
       </form>

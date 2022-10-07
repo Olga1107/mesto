@@ -6,6 +6,8 @@ import {Section} from '../components/Section.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {UserInfo} from '../components/UserInfo.js';
+import {PopupConfirmation} from '../components/PopupConfirmation.js';
+import {Api} from '../components/Api.js';
 
 const initialCards = [
   {
@@ -34,28 +36,6 @@ const initialCards = [
   }
 ];
 
-const buttonEdit = document.querySelector('.profile__edit-button');
-
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
-const nameInput = document.querySelector('.popup__input_data_name');
-const jobInput = document.querySelector('.popup__input_data_description');
-
-const buttonAdd = document.querySelector('.profile__add-button');
-const namePlaceInput = document.querySelector('.popup__input_data_place-name');
-const urlPictureInput = document.querySelector('.popup__input_data_url-on-picture');
-
-const formAdd = document.forms.addform;
-const formEdit = document.forms.editform;
-
-const popupEditForm = document.querySelector('.edit-form');
-const popupAddForm = document.querySelector('.add-form');
-const popupView = document.querySelector('.view-photo');
-const pictureCaption = document.querySelector('.popup__caption-photo');
-const picture = document.querySelector('.popup__image');
-
-const cardsGallery = document.querySelector('.photo-gallery');
-
 const enableValidation = {
   formSelector: '.form',
   inputSelector: '.popup__input',
@@ -72,13 +52,59 @@ const data = {
   title: '.photo-gallery__title',
   buttonLike: '.photo-gallery__like-button',
   buttonRemove: '.photo-gallery__remove-button'
-}
+};
+
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
+const buttonAvatar = document.querySelector('.overlay');
+
+const profileName = document.querySelector('.profile__name');
+const profileProfession = document.querySelector('.profile__profession');
+const profileAvatar = document.querySelector('.profile__photo');
+
+const nameInput = document.querySelector('.popup__input_data_name');
+const jobInput = document.querySelector('.popup__input_data_description');
+const avatarInput = document.querySelector('.popup__input_data_url-on-avatar');
+
+const formAdd = document.forms.addform;
+const formEdit = document.forms.editform;
+const formAvatar = document.forms.avatarform;
+
+const popupEditForm = document.querySelector('.edit-form');
+const popupAddForm = document.querySelector('.add-form');
+const popupAvatarForm = document.querySelector('.avatar-form');
+const popupView = document.querySelector('.view-photo');
+
+const pictureCaption = document.querySelector('.popup__caption-photo');
+const picture = document.querySelector('.popup__image');
+const cardsGallery = document.querySelector('.photo-gallery');
+
+
+const api = new Api ({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-50',
+  headers: {
+    authorization: "fa8b7030-628c-4c20-88d8-1bf7f45e43a9",
+    'Content-Type': 'application/json'
+  }
+})
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([users, cards]) => {
+    openEdit.setUserInfo(users);
+    firstListCard.renderItems(cards.reverse());
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+});
+
 
 const validationProfile = new FormValidator (enableValidation, formEdit);
 const validationCard = new FormValidator (enableValidation, formAdd);
+const validationAvatar = new FormValidator(enableValidation, formAvatar);
 
 validationCard.enableValidation();
 validationProfile.enableValidation();
+validationAvatar.enableValidation();
 
 
 function creatCard(cardTemplate) {
@@ -111,7 +137,22 @@ const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
 
 openEdit.setEventListeners();
 
-const userInfo = new UserInfo ({name: profileName, profession: profileProfession});
+function openProfileAvatar() {
+  const {avatar} = userInfo.getUserInfo(); 
+  avatarInput.value = avatar;
+  validationAvatar.disabledButton();
+  openAvatar.openPopup();
+}
+
+const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
+  userInfo.setUserInfo(data);
+  openEdit.closePopup();
+}});
+
+openAvatar.setEventListeners();
+buttonAvatar.addEventListener('click', openProfileAvatar)
+
+const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
 
 function openEditProfile() {
   const {name, profession} = userInfo.getUserInfo(); 
@@ -119,6 +160,7 @@ function openEditProfile() {
   jobInput.value = profession;
   openEdit.openPopup();
 };
+
 
 buttonEdit.addEventListener('click', openEditProfile);
 
@@ -128,4 +170,4 @@ function renderCard(cardTemplate) {
 };
 
 const firstListCard = new Section({renderer: renderCard}, cardsGallery);
-firstListCard.renderItems({items: initialCards});
+//firstListCard.renderItems({items: initialCards});

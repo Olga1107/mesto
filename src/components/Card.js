@@ -34,7 +34,7 @@ export class Card {
     
     _setEventListeners() {
         this._pictureView.addEventListener('click', () => {this._openViewPicture({name: this._name, link: this._link})}); 
-        this._buttonLike.addEventListener('click', this._likeStatus.bind(this)); 
+        this._buttonLike.addEventListener('click', this._likeStatus.bind(this));
         this._buttonRemove.addEventListener('click', this._deleteCard.bind(this));
     }
 

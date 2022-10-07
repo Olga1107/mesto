@@ -15,6 +15,7 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__profession/profile__profession.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__photo/overlay.css);
 
 @import url(../blocks/photo-gallery/photo-gallery.css);
 @import url(../blocks/photo-gallery/__card/photo-gallery__card.css);
@@ -24,6 +25,8 @@
 @import url(../blocks/photo-gallery/__like-button/photo-gallery__like-button.css);
 @import url(../blocks/photo-gallery/__like-button/_active/photo-gallery__like-button_active.css);
 @import url(../blocks/photo-gallery/__remove-button/photo-gallery__remove-button.css);
+@import url(../blocks/photo-gallery/number-of-likes.css);
+@import url(../blocks/photo-gallery/like-container.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);

@@ -1,0 +1,27 @@
+.overlay {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.overlay::after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.8);
+    background-image: url(../../../images/pencil.svg);
+    background-size: 26px 26px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+}
+
+.overlay:hover::after {
+    display: block;
+    cursor: pointer;
+    transition: display .4s ease-in-out;
+}

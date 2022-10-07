@@ -1,17 +1,17 @@
 export class UserInfo {
-    constructor ({name, profession}) {
+    constructor ({name, profession, avatar}) {
     this._userName = name;
     this._userJob = profession;
+    this._avatar = avatar;
     };
 
 getUserInfo() {
-    return {name: this._userName.textContent, profession: this._userJob.textContent};
+    return {name: this._userName.textContent, profession: this._userJob.textContent, avatar: this._avatar.src};
   };
 
 setUserInfo(res) {
-  debugger
       this._userName.textContent = res.name;
       this._userJob.textContent = res.about;
+      this._avatar.src = res.link;
   };
-
 };

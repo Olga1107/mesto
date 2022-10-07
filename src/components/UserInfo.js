@@ -12,7 +12,7 @@ getUserInfo() {
 setUserInfo(res) {
       this._userName.textContent = res.name;
       this._userJob.textContent = res.about;
-      this._avatar.src = res.link;
+      this._avatar.src = res.avatar;
       this._idUser = res._id;
   };
 

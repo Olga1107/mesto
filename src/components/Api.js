@@ -35,7 +35,7 @@ export default class Api {
   }
   
 //Редактирование аватара
-    setUserAvatar (userData) {
+    setUserAvatar(userData) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           headers: this._headers,
@@ -70,7 +70,7 @@ export default class Api {
       }
       
 //Удаление карточек
-      deleteCard (cardId) {
+      deleteCard(cardId) {
           return fetch(`${this._url}/cards/${cardId}`, {
               method: 'DELETE',
               headers: this._headers,

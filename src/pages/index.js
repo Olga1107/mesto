@@ -26,7 +26,7 @@ const data = {
   cardImage: '.photo-gallery__image',
   title: '.photo-gallery__title',
   buttonLike: '.photo-gallery__like-button',
-  activeLike: '.photo-gallery__like-button_active',
+  activeLike: 'photo-gallery__like-button_active',
   numberLikes: '.number-of-likes',
   buttonRemove: '.photo-gallery__remove-button'
 };
@@ -41,7 +41,7 @@ const profileAvatar = document.querySelector('.profile__photo');
 
 const nameInput = document.querySelector('.popup__input_data_name');
 const jobInput = document.querySelector('.popup__input_data_description');
-const avatarInput = document.querySelector('.popup__input_data_url-on-avatar');
+const avatarInput = document.querySelector('.popup__input_data_avatar');
 
 const formAdd = document.forms.addform;
 const formEdit = document.forms.editform;
@@ -118,7 +118,8 @@ buttonAdd.addEventListener('click', () => {
 
 const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
   api.setUserInfo(data)
-    .then((data) => {userInfo.setUserInfo(data);
+    .then((data) => {
+      userInfo.setUserInfo(data);
       openEdit.closePopup();})
     .catch((err) => {
       console.log(err)
@@ -135,11 +136,11 @@ function openProfileAvatar() {
 }
 
 const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
+  debugger
   api.setUserAvatar(data)
     .then((data) => {
       userInfo.setUserInfo(data);
-      openEdit.closePopup();
-    })
+      openAvatar.closePopup();})
     .catch((err) => {
       console.log(err)
     })

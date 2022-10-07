@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
     constructor(settings) {
         this._url = settings.url; 
         this._headers = settings.headers; 
@@ -9,7 +9,7 @@ export class Api {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Упс, ошибка, то-то пошло не так: ${res.status}`);
+        return Promise.reject(`Упс, что-то пошло не так, ошибка: ${res.status}`);
     }
 
 //Возвращение данных о пользователе
@@ -80,6 +80,7 @@ export class Api {
   
 //Поставить лайк на карточке
       putLike(cardId) {
+        debugger
           return fetch(`${this._url}/cards/${cardId}/likes`, {
               method: 'PUT',
               headers: this._headers,

@@ -12,7 +12,10 @@ export class FormValidator {
     // Проверка состояния полей ввода для активации/дезактивации кнопки "Сохранить"
     _toggleButtonState () {
         if(this._inputInvalid(this._inputs)) {
-            this.disabledButton();
+          if(!this._buttonSave.classList.contains(this._inactiveButtonClass)) {
+            this._buttonSave.classList.add(this._inactiveButtonClass);
+            this._buttonSave.setAttribute('disabled', true);
+          }
         } else {
           this._buttonSave.classList.remove(this._inactiveButtonClass);
           this._buttonSave.removeAttribute('disabled');
@@ -39,8 +42,8 @@ export class FormValidator {
     // Метод вызова строки ошибки
     _showErrorInput (inputElement, errors) {
         inputElement.classList.add(this._inputErrorClass);
-        errors.textContent = inputElement.validationMessage;
         errors.classList.add(this._errorClass);
+        errors.textContent = inputElement.validationMessage;
       };
       
     // Метод, убирающий строку ошибки

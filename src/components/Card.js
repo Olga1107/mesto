@@ -1,15 +1,26 @@
+import {userInfo} from "../pages/index.js";
+
 export class Card {
-    constructor ({name, link}, data, openViewPicture) {
+    constructor (card, data, openViewPicture, deleteCard, likeCard) {
         this._cardTemplate = data.cardTemplate;
         this._cardGallery = data.cardGallery;
         this._cardImage = data.cardImage;
         this._title = data.title;
         this._buttonLike = data.buttonLike;
+        this._activeLike = data.activeLike;
+        this._numberLikes = data.numberLikes;
         this._buttonRemove = data.buttonRemove;
-        this._openViewPicture = openViewPicture;
 
-        this._name = name;
-        this._link = link;
+        this._openViewPicture = openViewPicture;
+        this._deleteCard = deleteCard;
+        this._likeCard =likeCard;
+
+        this._name = card.name;
+        this._link = card.link;
+        this._idCard = card._id;
+        this._author = card.owner.name;
+        this._authorId = card.owner._id;
+        this._likes = card.likes;
     }
 
     _getTemplate() {
@@ -18,32 +29,36 @@ export class Card {
         this._pictureView = this._cardElement.querySelector(this._cardImage);
         this._title = this._cardElement.querySelector(this._title);
         this._buttonLike = this._cardElement.querySelector(this._buttonLike);
+        this._numberLikes = this._cardElement.querySelector(this._numberLikes);
         this._buttonRemove = this._cardElement.querySelector(this._buttonRemove);
 
         return cardTemplate;
     }
 
-    _likeStatus() {
-        this._buttonLike.classList.toggle('photo-gallery__like-button_active');
-    }
-
-    _deleteCard() {
-        this._cardElement.remove();
-    }
-
     
     _setEventListeners() {
         this._pictureView.addEventListener('click', () => {this._openViewPicture({name: this._name, link: this._link})}); 
-        this._buttonLike.addEventListener('click', this._likeStatus.bind(this));
-        this._buttonRemove.addEventListener('click', this._deleteCard.bind(this));
+        this._buttonLike.addEventListener('click', () => {this._likeCard(this._buttonLike, this._activeLike, this._idCard, this._numberLikes)});
+        this._buttonRemove.addEventListener('click', () => {this._deleteCard(this._cardElement, this._idCard)});
     }
+
+    _checkLikeCard() {
+        if (this._likes.some((like) => like._id === userInfo.getUserId())) {
+          this._buttonLike.classList.add(this._activeLike);
+        }
+      }
 
     addCard() {
         this._getTemplate();
         this._pictureView.src = this._link;
         this._pictureView.alt = this._name;
         this._title.textContent = this._name;
+        this._numberLikes.textContent = this._likes.length;
+        if (this._authorId !== userInfo.getUserId()) {
+            this._buttonRemove.remove();
+        }
         this._setEventListeners();
+        this._checkLikeCard();
         return this._cardElement;
     };
 }

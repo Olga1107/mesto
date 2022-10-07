@@ -1,3 +1,5 @@
+import Api from '../components/Api.js';
+
 import './index.css';
 
 import {Card} from '../components/Card.js';
@@ -7,34 +9,7 @@ import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {UserInfo} from '../components/UserInfo.js';
 import {PopupConfirmation} from '../components/PopupConfirmation.js';
-import {Api} from '../components/Api.js';
 
-const initialCards = [
-  {
-    name: 'Байкал',
-    link: 'https://all-aforizmy.ru/wp-content/uploads/2022/02/scale_1200-8.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  }
-];
 
 const enableValidation = {
   formSelector: '.form',
@@ -51,6 +26,8 @@ const data = {
   cardImage: '.photo-gallery__image',
   title: '.photo-gallery__title',
   buttonLike: '.photo-gallery__like-button',
+  activeLike: '.photo-gallery__like-button_active',
+  numberLikes: '.number-of-likes',
   buttonRemove: '.photo-gallery__remove-button'
 };
 
@@ -69,11 +46,13 @@ const avatarInput = document.querySelector('.popup__input_data_url-on-avatar');
 const formAdd = document.forms.addform;
 const formEdit = document.forms.editform;
 const formAvatar = document.forms.avatarform;
+const formConfirm = document.forms.confirmform;
 
 const popupEditForm = document.querySelector('.edit-form');
 const popupAddForm = document.querySelector('.add-form');
 const popupAvatarForm = document.querySelector('.avatar-form');
 const popupView = document.querySelector('.view-photo');
+const popupConfirm = document.querySelector('.confirmation');
 
 const pictureCaption = document.querySelector('.popup__caption-photo');
 const picture = document.querySelector('.popup__image');
@@ -88,9 +67,10 @@ const api = new Api ({
   }
 })
 
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([users, cards]) => {
-    openEdit.setUserInfo(users);
+    userInfo.setUserInfo(users);
     firstListCard.renderItems(cards.reverse());
   })
   .catch((err) => {
@@ -108,7 +88,7 @@ validationAvatar.enableValidation();
 
 
 function creatCard(cardTemplate) {
-  const card = new Card (cardTemplate, data, openViewPicture).addCard();
+  const card = new Card (cardTemplate, data, openViewPicture, deleteCard, likeCard).addCard();
   return card;
 }
 
@@ -120,8 +100,14 @@ function openViewPicture ({name, link}) {
 }
 
 const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
-  renderCard(data);
-  openAdd.closePopup();
+  api.addCards(data)
+  .then((res) => {
+    firstListCard.addItem(creatCard(res));
+    openAdd.closePopup();
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 }});
 
 openAdd.setEventListeners();
@@ -131,8 +117,12 @@ buttonAdd.addEventListener('click', () => {
   openAdd.openPopup()});
 
 const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
-  userInfo.setUserInfo(data);
-  openEdit.closePopup();
+  api.setUserInfo(data)
+    .then((data) => {userInfo.setUserInfo(data);
+      openEdit.closePopup();})
+    .catch((err) => {
+      console.log(err)
+    })
 }});
 
 openEdit.setEventListeners();
@@ -145,14 +135,20 @@ function openProfileAvatar() {
 }
 
 const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
-  userInfo.setUserInfo(data);
-  openEdit.closePopup();
+  api.setUserAvatar(data)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      openEdit.closePopup();
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }});
 
 openAvatar.setEventListeners();
 buttonAvatar.addEventListener('click', openProfileAvatar)
 
-const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
+export const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
 
 function openEditProfile() {
   const {name, profession} = userInfo.getUserInfo(); 
@@ -164,10 +160,51 @@ function openEditProfile() {
 
 buttonEdit.addEventListener('click', openEditProfile);
 
-function renderCard(cardTemplate) {
-  const cardElement = creatCard(cardTemplate);
+function renderCard(item) {
+  const cardElement = creatCard(item);
   firstListCard.addItem(cardElement);
 };
 
 const firstListCard = new Section({renderer: renderCard}, cardsGallery);
-//firstListCard.renderItems({items: initialCards});
+
+function likeCard (buttonLike, activeLike, idCard, numberLikes) {
+  if (buttonLike.classList.contains(activeLike)) {
+    api.deleteLike(idCard)
+    .then((like) => {
+      buttonLike.classList.remove(activeLike);
+      numberLikes.textContent = like.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+} else {
+  api.putLike(idCard)
+  .then((like) => {
+    buttonLike.classList.add(activeLike);
+    numberLikes.textContent = like.likes.length;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  }
+};
+
+function deleteCard (card, idCard) {
+  openConfirmation.openPopup(card, idCard);
+}
+
+const openConfirmation = new PopupConfirmation(popupConfirm, {submitForm: (card, idCard) => {
+  api.deleteCard(idCard)
+  .then(() => {
+    card.remove();
+    card = null;
+  })
+  .then(() => {
+    openConfirmation.closePopup();
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}})
+
+openConfirmation.setEventListeners();

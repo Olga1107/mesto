@@ -1,3 +1,4 @@
+//Импорты
 import Api from '../components/Api.js';
 
 import './index.css';
@@ -10,7 +11,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import {PopupConfirmation} from '../components/PopupConfirmation.js';
 
-
+//Переменные
 const enableValidation = {
   formSelector: '.form',
   inputSelector: '.popup__input',
@@ -58,7 +59,7 @@ const pictureCaption = document.querySelector('.popup__caption-photo');
 const picture = document.querySelector('.popup__image');
 const cardsGallery = document.querySelector('.photo-gallery');
 
-
+//Класс Api
 const api = new Api ({
   url: 'https://mesto.nomoreparties.co/v1/cohort-50',
   headers: {
@@ -66,7 +67,6 @@ const api = new Api ({
     'Content-Type': 'application/json'
   }
 })
-
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([users, cards]) => {
@@ -77,7 +77,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(`Ошибка: ${err}`);
 });
 
-
+//Валидация форм
 const validationProfile = new FormValidator (enableValidation, formEdit);
 const validationCard = new FormValidator (enableValidation, formAdd);
 const validationAvatar = new FormValidator(enableValidation, formAvatar);
@@ -86,12 +86,20 @@ validationCard.enableValidation();
 validationProfile.enableValidation();
 validationAvatar.enableValidation();
 
-
+//Создание карточек
 function creatCard(cardTemplate) {
   const card = new Card (cardTemplate, data, openViewPicture, deleteCard, likeCard).addCard();
   return card;
 }
 
+function renderCard(item) {
+  const cardElement = creatCard(item);
+  firstListCard.addItem(cardElement);
+};
+
+const firstListCard = new Section({renderer: renderCard}, cardsGallery);
+
+//Открытие увеличенной картинки
 const popupZoom = new PopupWithImage (popupView, picture, pictureCaption);
 popupZoom.setEventListeners();
 
@@ -99,6 +107,7 @@ function openViewPicture ({name, link}) {
     popupZoom.openPopup({name, link});
 }
 
+//Форма добавления карточек
 const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
   openAdd.isLoading(true, 'Создание...')
   api.addCards(data)
@@ -118,6 +127,7 @@ buttonAdd.addEventListener('click', () => {
   validationCard.disabledButton();
   openAdd.openPopup()});
 
+//Форма редактирования профиля
 const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
   openEdit.isLoading(true, 'Сохранение...')
   api.setUserInfo(data)
@@ -130,8 +140,17 @@ const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
     .finally(() => openEdit.isLoading(false))
 }});
 
-openEdit.setEventListeners();
+function openEditProfile() {
+  const {name, profession} = userInfo.getUserInfo(); 
+  nameInput.value = name;
+  jobInput.value = profession;
+  openEdit.openPopup();
+};
 
+openEdit.setEventListeners();
+buttonEdit.addEventListener('click', openEditProfile);
+
+//Форма редактирования аватара
 function openProfileAvatar() {
   const {avatar} = userInfo.getUserInfo(); 
   avatarInput.value = avatar;
@@ -154,25 +173,10 @@ const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
 openAvatar.setEventListeners();
 buttonAvatar.addEventListener('click', openProfileAvatar)
 
+//Данные пользователя
 export const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
 
-function openEditProfile() {
-  const {name, profession} = userInfo.getUserInfo(); 
-  nameInput.value = name;
-  jobInput.value = profession;
-  openEdit.openPopup();
-};
-
-
-buttonEdit.addEventListener('click', openEditProfile);
-
-function renderCard(item) {
-  const cardElement = creatCard(item);
-  firstListCard.addItem(cardElement);
-};
-
-const firstListCard = new Section({renderer: renderCard}, cardsGallery);
-
+//Функция лайка карточек
 function likeCard (buttonLike, activeLike, idCard, numberLikes) {
   if (buttonLike.classList.contains(activeLike)) {
     api.deleteLike(idCard)
@@ -195,10 +199,12 @@ function likeCard (buttonLike, activeLike, idCard, numberLikes) {
   }
 };
 
+//Функция удаления карточек
 function deleteCard (card, idCard) {
   openConfirmation.openPopup(card, idCard);
 }
 
+//Окно подтверждения удаления карточки
 const openConfirmation = new PopupConfirmation(popupConfirm, {submitForm: (card, idCard) => {
   api.deleteCard(idCard)
   .then(() => {

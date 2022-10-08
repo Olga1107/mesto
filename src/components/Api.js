@@ -40,7 +40,7 @@ export default class Api {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-            avatar: userData.avatar
+            avatar: userData.link
             })
         })
     .then(res => this._check(res))

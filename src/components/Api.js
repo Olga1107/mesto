@@ -35,12 +35,12 @@ export default class Api {
   }
   
 //Редактирование аватара
-    setUserAvatar(userData) {
+    setUserAvatar(data) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-            avatar: userData.avatar
+            avatar: data.avatar
             })
         })
     .then(res => this._check(res))

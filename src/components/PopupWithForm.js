@@ -1,6 +1,6 @@
-import {Popup} from './Popup.js';
+import Popup from './Popup.js';
 
-export class PopupWithForm extends Popup {
+export default class PopupWithForm extends Popup {
     constructor (popupSelector, {submitForm}) {
         super(popupSelector);
         this._submitForm = submitForm;
@@ -16,7 +16,6 @@ export class PopupWithForm extends Popup {
         });
         return this._inputValues;
     };
-
     
     setEventListeners() {
         super.setEventListeners();
@@ -30,4 +29,16 @@ export class PopupWithForm extends Popup {
         super.closePopup();
         this.form.reset();
       };
+
+      isLoading(isLoad, text = 'Подождите...') {
+        if (isLoad) {
+          this._submitButton.textContent = text;
+          this._submitButton.disabled = true;
+          this._submitButton.classList.add('popup__save-button_disabled');
+        } else {
+          this._submitButton.textContent = this._submitBtn.value;
+          this._submitButton.disabled = false;
+          this._submitButton.classList.remove('popup__save-button_disabled');
+        }
+      }
 }

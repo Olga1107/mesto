@@ -1,4 +1,4 @@
-export class UserInfo {
+export default class UserInfo {
     constructor ({name, profession, avatar}) {
     this._userName = name;
     this._userJob = profession;

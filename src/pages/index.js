@@ -6,8 +6,8 @@ import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
-import {PopupWithForm} from '../components/PopupWithForm.js';
-import {UserInfo} from '../components/UserInfo.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import {PopupConfirmation} from '../components/PopupConfirmation.js';
 
 
@@ -100,6 +100,7 @@ function openViewPicture ({name, link}) {
 }
 
 const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
+  openAdd.isLoading(true, 'Создание...')
   api.addCards(data)
   .then((res) => {
     firstListCard.addItem(creatCard(res));
@@ -108,6 +109,7 @@ const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
   .catch((err) => {
     console.log(err)
   })
+  .finally(() => openAdd.isLoading(false))
 }});
 
 openAdd.setEventListeners();
@@ -117,6 +119,7 @@ buttonAdd.addEventListener('click', () => {
   openAdd.openPopup()});
 
 const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
+  openEdit.isLoading(true, 'Сохранение...')
   api.setUserInfo(data)
     .then((data) => {
       userInfo.setUserInfo(data);
@@ -124,6 +127,7 @@ const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
     .catch((err) => {
       console.log(err)
     })
+    .finally(() => openEdit.isLoading(false))
 }});
 
 openEdit.setEventListeners();
@@ -136,7 +140,7 @@ function openProfileAvatar() {
 }
 
 const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
-  debugger
+  openAvatar.isLoading(true, 'Сохранение...')
   api.setUserAvatar(data)
     .then((data) => {
       userInfo.setUserInfo(data);
@@ -144,6 +148,7 @@ const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
     .catch((err) => {
       console.log(err)
     })
+    .finally(() => openAvatar.isLoading(false))
 }});
 
 openAvatar.setEventListeners();
@@ -206,6 +211,7 @@ const openConfirmation = new PopupConfirmation(popupConfirm, {submitForm: (card,
   .catch((err) => {
     console.log(err)
   })
+  .finally(() => openConfirmation.isLoading(false))
 }})
 
 openConfirmation.setEventListeners();

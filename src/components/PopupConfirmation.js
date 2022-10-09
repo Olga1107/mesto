@@ -8,10 +8,10 @@ export class PopupConfirmation extends Popup {
         this._submitButton = this.form.querySelector('.popup__save-button');
     }
 
-    openPopup(card, idCard) {
+    openPopup(item, idItem) {
       super.openPopup();
-      this._idCard = idCard;
-      this._card = card;
+      this._idItem = idItem;
+      this._item = item;
     }
 
 
@@ -19,7 +19,7 @@ export class PopupConfirmation extends Popup {
       super.setEventListeners();
         this.form.addEventListener('submit', (evt) => {
           evt.preventDefault();
-          this._submitForm(this._card, this._idCard)
+          this._submitForm(this._item, this._idItem)
         });
       };
 
@@ -29,7 +29,6 @@ export class PopupConfirmation extends Popup {
           this._submitButton.disabled = true;
           this._submitButton.classList.add('popup__save-button_disabled');
         } else {
-          this._submitButton.textContent = this._submitBtn.value;
           this._submitButton.disabled = false;
           this._submitButton.classList.remove('popup__save-button_disabled');
         }

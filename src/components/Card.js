@@ -1,7 +1,5 @@
-import {userInfo} from "../pages/index.js";
-
 export class Card {
-    constructor (card, data, openViewPicture, deleteCard, likeCard) {
+    constructor (card, data, openViewPicture, deleteCard, likeCard, userInfo) {
         this._cardTemplate = data.cardTemplate;
         this._cardGallery = data.cardGallery;
         this._cardImage = data.cardImage;
@@ -14,6 +12,7 @@ export class Card {
         this._openViewPicture = openViewPicture;
         this._deleteCard = deleteCard;
         this._likeCard =likeCard;
+        this._userInfo = userInfo;
 
         this._name = card.name;
         this._link = card.link;
@@ -35,6 +34,17 @@ export class Card {
         return cardTemplate;
     }
 
+    addLikeClass() {
+        this._buttonLike.classList.add(this._activeLike);
+    }
+
+    removeLikeClass() {
+        this._buttonLike.classList.remove(this._activeLike);
+    }
+
+    removeCard() {
+        this._cardElement.remove();
+    }
     
     _setEventListeners() {
         this._pictureView.addEventListener('click', () => {this._openViewPicture({name: `Автор: ${this._author}. Описание: ${this._name}`, link: this._link})}); 
@@ -43,7 +53,7 @@ export class Card {
     }
 
     _checkLikeCard() {
-        if (this._likes.some((like) => like._id === userInfo.getUserId())) {
+        if (this._likes.some((like) => like._id === this._userInfo.getUserId())) {
           this._buttonLike.classList.add(this._activeLike);
         }
       }
@@ -54,7 +64,7 @@ export class Card {
         this._pictureView.alt = this._name;
         this._title.textContent = this._name;
         this._numberLikes.textContent = this._likes.length;
-        if (this._authorId !== userInfo.getUserId()) {
+        if (this._authorId !== this._userInfo.getUserId()) {
             this._buttonRemove.remove();
         }
         this._setEventListeners();

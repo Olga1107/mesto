@@ -88,9 +88,9 @@ validationAvatar.enableValidation();
 
 //Создание карточек
 function creatCard(cardTemplate) {
-  const card = new Card (cardTemplate, data, openViewPicture, deleteCard, likeCard).addCard();
+  const card = new Card (cardTemplate, data, openViewPicture, deleteCard, likeCard, userInfo).addCard();
   return card;
-}
+};
 
 function renderCard(item) {
   const cardElement = creatCard(item);
@@ -105,49 +105,48 @@ popupZoom.setEventListeners();
 
 function openViewPicture ({name, link}) {
     popupZoom.openPopup({name, link});
-}
+};
 
 //Форма добавления карточек
-const openAdd = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
-  openAdd.isLoading(true, 'Создание...')
+const popupAddCard = new PopupWithForm (popupAddForm, {submitForm: (data)=> {
+ popupAddCard.isLoading(true, 'Создание...')
   api.addCards(data)
   .then((res) => {
     firstListCard.addItem(creatCard(res));
-    openAdd.closePopup();
+   popupAddCard.closePopup();
   })
   .catch((err) => {
     console.log(err)
   })
-  .finally(() => openAdd.isLoading(false))
+  .finally(() => popupAddCard.isLoading(false))
 }});
-
-openAdd.setEventListeners();
+ popupAddCard.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
   validationCard.disabledButton();
-  openAdd.openPopup()});
+ popupAddCard.openPopup()});
 
 //Форма редактирования профиля
-const openEdit = new PopupWithForm (popupEditForm, {submitForm: (data) => {
-  openEdit.isLoading(true, 'Сохранение...')
+const popupEditInformation = new PopupWithForm (popupEditForm, {submitForm: (data) => {
+  popupEditInformation.isLoading(true, 'Сохранение...')
   api.setUserInfo(data)
     .then((data) => {
       userInfo.setUserInfo(data);
-      openEdit.closePopup();})
+      popupEditInformation.closePopup();})
     .catch((err) => {
       console.log(err)
     })
-    .finally(() => openEdit.isLoading(false))
+    .finally(() => popupEditInformation.isLoading(false))
 }});
 
 function openEditProfile() {
   const {name, profession} = userInfo.getUserInfo(); 
   nameInput.value = name;
   jobInput.value = profession;
-  openEdit.openPopup();
+  popupEditInformation.openPopup();
 };
 
-openEdit.setEventListeners();
+popupEditInformation.setEventListeners();
 buttonEdit.addEventListener('click', openEditProfile);
 
 //Форма редактирования аватара
@@ -155,33 +154,33 @@ function openProfileAvatar() {
   const {avatar} = userInfo.getUserInfo(); 
   avatarInput.value = avatar;
   validationAvatar.disabledButton();
-  openAvatar.openPopup();
+  popupAvatarProfile.openPopup();
 }
 
-const openAvatar = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
-  openAvatar.isLoading(true, 'Сохранение...')
+const popupAvatarProfile = new PopupWithForm (popupAvatarForm, {submitForm: (data) => {
+  popupAvatarProfile.isLoading(true, 'Сохранение...')
   api.setUserAvatar(data)
     .then((data) => {
       userInfo.setUserInfo(data);
-      openAvatar.closePopup();})
+      popupAvatarProfile.closePopup();})
     .catch((err) => {
       console.log(err)
     })
-    .finally(() => openAvatar.isLoading(false))
+    .finally(() => popupAvatarProfile.isLoading(false))
 }});
 
-openAvatar.setEventListeners();
+popupAvatarProfile.setEventListeners();
 buttonAvatar.addEventListener('click', openProfileAvatar)
 
 //Данные пользователя
-export const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
+const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
 
 //Функция лайка карточек
 function likeCard (buttonLike, activeLike, idCard, numberLikes) {
   if (buttonLike.classList.contains(activeLike)) {
     api.deleteLike(idCard)
     .then((like) => {
-      buttonLike.classList.remove(activeLike);
+      idCard.removeLikeClass();
       numberLikes.textContent = like.likes.length;
     })
     .catch((err) => {
@@ -190,7 +189,7 @@ function likeCard (buttonLike, activeLike, idCard, numberLikes) {
 } else {
   api.putLike(idCard)
   .then((like) => {
-    buttonLike.classList.add(activeLike);
+    idCard.addLikeClass();
     numberLikes.textContent = like.likes.length;
   })
   .catch((err) => {
@@ -208,7 +207,7 @@ function deleteCard (card, idCard) {
 const openConfirmation = new PopupConfirmation(popupConfirm, {submitForm: (card, idCard) => {
   api.deleteCard(idCard)
   .then(() => {
-    card.remove();
+    card.removeCard();
     card = null;
   })
   .then(() => {

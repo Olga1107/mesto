@@ -7,6 +7,9 @@ export class FormValidator {
         this._inputErrorClass = setting.inputErrorClass;
         this._errorClass = setting.errorClass;
         this._formElement = formElement;
+
+        this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        this._buttonSave = this._formElement.querySelector(this._submitButtonSelector);
     }
 
     // Проверка состояния полей ввода для активации/дезактивации кнопки "Сохранить"
@@ -61,8 +64,6 @@ export class FormValidator {
 
     // Метод включения валидации форм
     enableValidation() {
-        this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-        this._buttonSave = this._formElement.querySelector(this._submitButtonSelector);
         this._toggleButtonState();
         this._formElement.addEventListener('input', ((evt) => {
             const inputElement = evt.target;

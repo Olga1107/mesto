@@ -80,7 +80,6 @@ export default class Api {
   
 //Поставить лайк на карточке
       putLike(cardId) {
-        debugger
           return fetch(`${this._url}/cards/${cardId}/likes`, {
               method: 'PUT',
               headers: this._headers,

@@ -176,12 +176,11 @@ buttonAvatar.addEventListener('click', openProfileAvatar)
 const userInfo = new UserInfo ({name: profileName, profession: profileProfession, avatar: profileAvatar});
 
 //Функция лайка карточек
-function likeCard (buttonLike, activeLike, idCard, numberLikes) {
+function likeCard (buttonLike, activeLike, idCard) {
   if (buttonLike.classList.contains(activeLike)) {
     api.deleteLike(idCard)
     .then((like) => {
-      idCard.removeLikeClass();
-      numberLikes.textContent = like.likes.length;
+      idCard.removeLikeClass(like);
     })
     .catch((err) => {
       console.log(err);
@@ -189,8 +188,7 @@ function likeCard (buttonLike, activeLike, idCard, numberLikes) {
 } else {
   api.putLike(idCard)
   .then((like) => {
-    idCard.addLikeClass();
-    numberLikes.textContent = like.likes.length;
+    idCard.addLikeClass(like);
   })
   .catch((err) => {
     console.log(err);
@@ -208,7 +206,6 @@ const openConfirmation = new PopupConfirmation(popupConfirm, {submitForm: (card,
   api.deleteCard(idCard)
   .then(() => {
     card.removeCard();
-    card = null;
   })
   .then(() => {
     openConfirmation.closePopup();
